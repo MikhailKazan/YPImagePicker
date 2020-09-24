@@ -27,6 +27,8 @@ public class YPPhotoSaver {
     fileprivate class func saveImage(_ image: UIImage, toAlbum album: PHAssetCollection) {
         PHPhotoLibrary.shared().performChanges({
             let changeRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            let location = CustomLocationManager.shared.getLastLocation()
+            changeRequest.location = location 
             let albumChangeRequest = PHAssetCollectionChangeRequest(for: album)
             let enumeration: NSArray = [changeRequest.placeholderForCreatedAsset!]
             albumChangeRequest?.addAssets(enumeration)
